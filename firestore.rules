@@ -1,0 +1,36 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Deny all access by default — explicit rules below cover allowed paths
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    match /users/{uid} {
+      allow read, write: if request.auth != null && request.auth.uid == uid;
+
+      match /captures/{captureId} {
+        allow read: if request.auth != null && request.auth.uid == uid;
+
+        // Allow updates/deletes freely; restrict creates by free-tier limit
+        allow update, delete: if request.auth != null && request.auth.uid == uid;
+
+        allow create: if request.auth != null
+          && request.auth.uid == uid
+          && (
+            get(/databases/$(database)/documents/users/$(uid)/profile/data).data.subscriptionStatus == 'active'
+            || get(/databases/$(database)/documents/users/$(uid)/profile/data).data.captureCount < 20
+          );
+      }
+
+      match /sessions/{sessionId} {
+        allow read, write: if request.auth != null && request.auth.uid == uid;
+      }
+
+      match /profile/{document=**} {
+        allow read, write: if request.auth != null && request.auth.uid == uid;
+      }
+    }
+  }
+}
