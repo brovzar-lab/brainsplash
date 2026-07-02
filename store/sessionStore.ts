@@ -4,7 +4,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export interface Session {
   id: string;
-  type: 'meditation' | 'breathing';
+  type: 'meditation' | 'breathwork';
   durationSeconds: number;
   completedAt: number;
 }

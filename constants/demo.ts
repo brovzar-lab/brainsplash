@@ -91,13 +91,13 @@ export const DEMO_ACTIVE_TRANSCRIPT =
 
 export interface DemoSession {
   id: string;
-  type: 'meditation' | 'breathing';
+  type: 'meditation' | 'breathwork';
   durationSeconds: number;
   completedAt: number;
 }
 
 export const DEMO_SESSIONS: DemoSession[] = [
   { id: 'ds1', type: 'meditation', durationSeconds: 300, completedAt: Date.now() - 2 * 3600_000 },
-  { id: 'ds2', type: 'breathing', durationSeconds: 240, completedAt: Date.now() - 26 * 3600_000 },
+  { id: 'ds2', type: 'breathwork', durationSeconds: 240, completedAt: Date.now() - 26 * 3600_000 },
   { id: 'ds3', type: 'meditation', durationSeconds: 600, completedAt: Date.now() - 3 * 86_400_000 },
 ];

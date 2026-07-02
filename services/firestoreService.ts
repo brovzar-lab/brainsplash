@@ -80,7 +80,7 @@ export async function saveSession(
   uid: string,
   sessionId: string,
   data: {
-    type: 'meditation' | 'breathing';
+    type: 'meditation' | 'breathwork';
     durationSeconds: number;
   },
 ): Promise<void> {
